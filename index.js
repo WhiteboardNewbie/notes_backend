@@ -41,10 +41,6 @@ const generateId = () => {
   return String(maxId + 1)
 }
 
-app.get('/', (request, response) => {
-  response.send('<h1>Notes App</h1>')
-})
-
 app.get('/api/notes', (request, response) => {
   response.json(notes)
 })
