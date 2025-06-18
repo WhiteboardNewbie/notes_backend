@@ -1,5 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
+
+const Note = require('./models/note')
 
 app.use(express.static('dist'))
 
@@ -40,7 +43,9 @@ const generateId = () => {
 }
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
