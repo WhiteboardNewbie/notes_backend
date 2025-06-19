@@ -5,7 +5,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 
-// model 
+// model
 const Note = require('./models/note')
 
 // dist
@@ -16,11 +16,11 @@ app.use(express.json())
 
 // requestLogger
 const requestLogger = (req, res, next) => {
-    console.log('Method:', req.method),
-    console.log('Path:', req.path),
-    console.log('Body:', req.body),
-    console.log('---')
-    next()
+  console.log('Method:', req.method),
+  console.log('Path:', req.path),
+  console.log('Body:', req.body),
+  console.log('---')
+  next()
 }
 app.use(requestLogger)
 
@@ -33,16 +33,16 @@ app.get('/api/notes', (request, response) => {
 
 // getById
 app.get('/api/notes/:id', (request, response, next) => {
-    Note.findById(request.params.id)
-      .then(note => {
-        if (note) {
-          response.json(note)
-        }
-        else {
-          response.status(404).end()
-        }
-      })
-      .catch(error => next(error))
+  Note.findById(request.params.id)
+    .then(note => {
+      if (note) {
+        response.json(note)
+      }
+      else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
 })
 
 // create
@@ -57,7 +57,7 @@ app.post('/api/notes', (request, response, next) => {
   note.save().then(savedNote => {
     response.json(savedNote)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 // update
@@ -101,11 +101,11 @@ const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if (error.name === 'CastError') {
-    return response.status(400).send({ error: "malformatted id"})
+    return response.status(400).send({ error: 'malformatted id' })
   }
 
   else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message})
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
